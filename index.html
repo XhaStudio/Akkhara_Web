@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="my" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>ဘာကြောင့် Akkhara Lang ကို တီထွင်ခဲ့တာလဲ? - Akkhara Documentation</title>
+
+    <!-- Google Fonts for Myanmar Unicode & English Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Noto+Sans+Myanmar:wght@400;500;600;700&family=Noto+Serif+Myanmar:wght@400;500;600&family=Source+Code+Pro:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        color-scheme: light;
+        --bg-body: #ffffff;
+        --text-color: #222222;
+        --heading-color: #111111;
+        --border-color: #dddddd;
+        --border-subtle: #eaeaea;
+        --link-color: #4183c4;
+        --link-hover: #1e5b97;
+        --code-color: #9f2a2b;
+        --code-bg: #f8f8f9;
+        --code-border: #e7e7eb;
+        --muted-color: #71717a;
+        --blockquote-bg: #fafafa;
+        --blockquote-border: #d0d7de;
+        --sidebar-bg: #fafafa;
+        --sidebar-fg: #333333;
+        --sidebar-border: #e5e5e5;
+        --sidebar-active-bg: #ebf3fa;
+        --sidebar-active-fg: #2c6eb5;
+        --topbar-bg: #ffffff;
+        --topbar-border: #e5e5e5;
+        --hover-bg: rgba(0, 0, 0, 0.05);
+
+        --font-heading: "Noto Sans Myanmar", "Fira Sans", -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, Padauk, "Myanmar Text",
+          sans-serif;
+        --font-body: "Noto Serif Myanmar", "Source Serif 4", Georgia,
+          "Times New Roman", Padauk, "Myanmar Text", serif;
+        --font-mono: "Source Code Pro", SFMono-Regular, Consolas, Menlo, Monaco,
+          "Liberation Mono", Courier, monospace;
+
+        --sidebar-width: 280px;
+        --content-max-width: 840px;
+      }
+
+      [data-theme="dark"] {
+        color-scheme: dark;
+        --bg-body: #1e1e1e;
+        --text-color: #dcdcdc;
+        --heading-color: #f5f5f5;
+        --border-color: #383838;
+        --border-subtle: #2d2d2d;
+        --link-color: #6ab0f3;
+        --link-hover: #9bd0ff;
+        --code-color: #f28b82;
+        --code-bg: #292a2d;
+        --code-border: #3c4043;
+        --muted-color: #9aa0a6;
+        --blockquote-bg: #252627;
+        --blockquote-border: #525860;
+        --sidebar-bg: #18191a;
+        --sidebar-fg: #cccccc;
+        --sidebar-border: #303234;
+        --sidebar-active-bg: #233547;
+        --sidebar-active-fg: #74b8ff;
+        --topbar-bg: #1e1e1e;
+        --topbar-border: #303234;
+        --hover-bg: rgba(255, 255, 255, 0.08);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-body);
+        color: var(--text-color);
+        font-family: var(--font-body);
+        font-size: 18px;
+        line-height: 2;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* Layout */
+      .app-layout {
+        display: flex;
+        min-height: 100vh;
+        position: relative;
+      }
+
+      /* Sidebar (mdBook style) */
+      .sidebar {
+        width: var(--sidebar-width);
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        background-color: var(--sidebar-bg);
+        border-right: 1px solid var(--sidebar-border);
+        overflow-y: auto;
+        transform: translateX(0);
+        transition: transform 0.22s ease-in-out;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .sidebar-header {
+        padding: 1.1rem 1.25rem 0.9rem;
+        border-bottom: 1px solid var(--sidebar-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .sidebar-title {
+        font-family: var(--font-heading);
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--heading-color);
+        text-decoration: none;
+        letter-spacing: -0.01em;
+      }
+
+      .sidebar-nav {
+        padding: 1rem 0.75rem 2rem;
+        flex: 1;
+      }
+
+      .chapter-list,
+      .subchapter-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .chapter-item {
+        margin-bottom: 0.35rem;
+      }
+
+      .chapter-group-title {
+        font-family: var(--font-heading);
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted-color);
+        padding: 0.6rem 0.65rem 0.25rem;
+      }
+
+      .chapter-link {
+        display: block;
+        padding: 0.45rem 0.65rem;
+        border-radius: 4px;
+        color: var(--sidebar-fg);
+        font-family: var(--font-heading);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        text-decoration: none;
+        transition: background-color 0.15s ease, color 0.15s ease;
+      }
+
+      .chapter-link:hover {
+        background-color: var(--hover-bg);
+        text-decoration: none;
+      }
+
+      .chapter-link.active,
+      .chapter-link[aria-current="page"] {
+        background-color: var(--sidebar-active-bg);
+        color: var(--sidebar-active-fg);
+        font-weight: 500;
+      }
+
+      .subchapter-list {
+        padding-left: 0.9rem;
+        margin-top: 0.2rem;
+      }
+
+      .subchapter-list .chapter-link {
+        font-size: 0.9rem;
+      }
+
+      /* Backdrop for mobile drawer */
+      .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 90;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      /* Main container */
+      .main-container {
+        flex: 1;
+        margin-left: var(--sidebar-width);
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        transition: margin-left 0.22s ease-in-out;
+      }
+
+      /* Top navigation bar (mdBook style) */
+      .top-bar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background-color: var(--topbar-bg);
+        border-bottom: 1px solid var(--topbar-border);
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.25rem;
+      }
+
+      .top-bar-left,
+      .top-bar-right {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 4px;
+        color: var(--text-color);
+        cursor: pointer;
+        opacity: 0.75;
+        transition: opacity 0.15s ease, background-color 0.15s ease;
+      }
+
+      .icon-button:hover,
+      .icon-button:focus-visible {
+        opacity: 1;
+        background-color: var(--hover-bg);
+        outline: none;
+      }
+
+      .icon-button svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+
+      .brand-title {
+        font-family: var(--font-heading);
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--muted-color);
+        margin-left: 0.35rem;
+      }
+
+      /* Content Area */
+      .content-wrapper {
+        flex: 1;
+        width: 100%;
+        max-width: var(--content-max-width);
+        margin: 0 auto;
+        padding: 2.2rem 2.2rem 4rem;
+      }
+
+      article {
+        min-height: 50vh;
+      }
+
+      /* Headings (Rust Documentation / mdBook style) */
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-heading);
+        color: var(--heading-color);
+        font-weight: 500;
+        letter-spacing: -0.015em;
+      }
+
+      h1 {
+        font-size: 2.35rem;
+        line-height: 1.5;
+        margin: 0.2rem 0 1.8rem;
+        padding-bottom: 0.55rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      h2 {
+        font-size: 1.6rem;
+        line-height: 1.6;
+        margin: 2.5rem 0 1rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      h3 {
+        font-size: 1.3rem;
+        line-height: 1.6;
+        margin: 2rem 0 0.8rem;
+        padding-bottom: 0.3rem;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      /* Paragraphs & Typography */
+      p {
+        margin: 0 0 1.5rem;
+        color: var(--text-color);
+      }
+
+      /* Links */
+      a {
+        color: var(--link-color);
+        text-decoration: none;
+        transition: color 0.15s ease;
+      }
+
+      a:hover,
+      a:focus-visible {
+        text-decoration: underline;
+      }
+
+      /* External Link Icon (↗) */
+      a[target="_blank"]::after,
+      a.external::after {
+        content: " ↗";
+        display: inline-block;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Arial, sans-serif;
+        font-size: 0.78em;
+        line-height: 1;
+        vertical-align: 0.14em;
+        text-decoration: none;
+        opacity: 0.85;
+      }
+
+      /* Inline Code (Rustdoc maroon/dark-red style) */
+      code {
+        font-family: var(--font-mono);
+        font-size: 0.9em;
+        color: var(--code-color);
+        background-color: var(--code-bg);
+        border: 1px solid var(--code-border);
+        border-radius: 3px;
+        padding: 0.12em 0.38em;
+        word-break: break-word;
+      }
+
+      /* Unordered List */
+      ul {
+        margin: 0.2rem 0 1.6rem;
+        padding-left: 2rem;
+      }
+
+      li {
+        margin-bottom: 0.65rem;
+        padding-left: 0.2rem;
+      }
+
+      /* Small muted note */
+      .note {
+        font-size: 0.88em;
+        color: var(--muted-color);
+      }
+
+      /* Blockquote (Highlighted quote with left border) */
+      blockquote {
+        margin: 2rem 0 2rem;
+        padding: 0.8rem 1.4rem;
+        border-left: 4px solid var(--blockquote-border);
+        background-color: var(--blockquote-bg);
+        border-radius: 0 4px 4px 0;
+      }
+
+      blockquote p {
+        margin: 0 0 1.25rem;
+      }
+
+      blockquote p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Footer */
+      footer {
+        margin-top: 3.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
+        font-family: var(--font-heading);
+        font-size: 0.92rem;
+        color: var(--muted-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .footer-repo-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+
+      /* Toast Notification for placeholder chapters */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #333333;
+        color: #ffffff;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-family: var(--font-heading);
+        font-size: 0.9rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        pointer-events: none;
+        z-index: 200;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      [data-theme="dark"] .toast {
+        background: #f5f5f5;
+        color: #1a1a1a;
+      }
+
+      /* Search Modal (mdBook style) */
+      .search-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 150;
+        display: none;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 80px 1rem 1rem;
+      }
+
+      .search-modal.open {
+        display: flex;
+      }
+
+      .search-box {
+        width: 100%;
+        max-width: 580px;
+        background: var(--bg-body);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .search-header {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        gap: 0.6rem;
+      }
+
+      .search-input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-family: var(--font-heading);
+        font-size: 1.05rem;
+        color: var(--text-color);
+        outline: none;
+      }
+
+      .search-results {
+        max-height: 340px;
+        overflow-y: auto;
+        padding: 0.5rem;
+      }
+
+      .search-result-item {
+        display: block;
+        padding: 0.65rem 0.85rem;
+        border-radius: 6px;
+        color: var(--text-color);
+        text-decoration: none;
+        font-family: var(--font-heading);
+      }
+
+      .search-result-item:hover {
+        background-color: var(--hover-bg);
+        text-decoration: none;
+      }
+
+      .search-result-title {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--link-color);
+      }
+
+      .search-result-snippet {
+        font-size: 0.84rem;
+        color: var(--muted-color);
+        margin-top: 0.2rem;
+        line-height: 1.5;
+      }
+
+      /* Collapsed sidebar state on desktop */
+      body.sidebar-hidden .sidebar {
+        transform: translateX(calc(-1 * var(--sidebar-width)));
+      }
+
+      body.sidebar-hidden .main-container {
+        margin-left: 0;
+      }
+
+      /* Responsive Breakpoints */
+      @media (max-width: 900px) {
+        .sidebar {
+          transform: translateX(calc(-1 * var(--sidebar-width)));
+          box-shadow: 2px 0 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .main-container {
+          margin-left: 0;
+        }
+
+        body.sidebar-open .sidebar {
+          transform: translateX(0);
+        }
+
+        body.sidebar-open .sidebar-backdrop {
+          display: block;
+          opacity: 1;
+        }
+
+        .content-wrapper {
+          padding: 1.6rem 1.4rem 3rem;
+        }
+
+        h1 {
+          font-size: 1.95rem;
+        }
+
+        body {
+          font-size: 17px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .content-wrapper {
+          padding: 1.25rem 1rem 2.5rem;
+        }
+
+        h1 {
+          font-size: 1.7rem;
+        }
+
+        .top-bar {
+          padding: 0 0.75rem;
+        }
+
+        .brand-title {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Backdrop for mobile drawer -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- Collapsible mdBook-style Sidebar -->
+      <nav
+        class="sidebar"
+        id="sidebar"
+        aria-label="မာတိကာ စာရင်း"
+        aria-hidden="false"
+      >
+        <div class="sidebar-header">
+          <a class="sidebar-title" href="#article">Akkhara Documentation</a>
+        </div>
+        <div class="sidebar-nav">
+          <ul class="chapter-list">
+            <li class="chapter-group-title">မာတိကာ</li>
+            <li class="chapter-item">
+              <a class="chapter-link active" href="#article" aria-current="page"
+                >ဘာကြောင့် Akkhara Lang ကို တီထွင်ခဲ့တာလဲ?</a
+              >
+            </li>
+            <li class="chapter-item">
+              <a
+                class="chapter-link"
+                href="install.html"
+                >Install လုပ်နည်း</a
+              >
+            </li>
+            <li class="chapter-item">
+              <a
+                class="chapter-link"
+                href="getting-started.html"
+                >စတင်အသုံးပြုခြင်း</a
+              >
+            </li>
+            <li class="chapter-item">
+              <a
+                class="chapter-link placeholder-link"
+                href="#syntax"
+                data-chapter="Syntax"
+                >Syntax</a
+              >
+            </li>
+            <li class="chapter-item">
+              <a
+                class="chapter-link placeholder-link"
+                href="#examples"
+                data-chapter="ဥပမာများ"
+                >ဥပမာများ</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Main Container -->
+      <div class="main-container">
+        <!-- Top Toolbar (mdBook / Rustdoc style) -->
+        <header class="top-bar">
+          <div class="top-bar-left">
+            <button
+              class="icon-button"
+              id="sidebar-toggle"
+              type="button"
+              aria-label="Toggle Table of Contents"
+              aria-controls="sidebar"
+              aria-expanded="true"
+              title="Toggle sidebar (Ctrl+B)"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+                ></path>
+              </svg>
+            </button>
+
+            <button
+              class="icon-button"
+              id="theme-toggle"
+              type="button"
+              aria-label="Toggle Theme"
+              title="Toggle dark/light theme"
+            >
+              <!-- Sun / Moon Icon -->
+              <svg class="theme-icon-light" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"
+                ></path>
+              </svg>
+            </button>
+
+            <button
+              class="icon-button"
+              id="search-toggle"
+              type="button"
+              aria-label="Search"
+              title="Search documentation (/)"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                ></path>
+              </svg>
+            </button>
+
+            <span class="brand-title">Akkhara Programming Language</span>
+          </div>
+
+          <div class="top-bar-right">
+            <a
+              class="icon-button"
+              href="https://github.com/XhaStudio/Akkhara-Programming-Language"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub Repository"
+              title="GitHub repository"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </header>
+
+        <!-- Main Reading Content -->
+        <main class="content-wrapper">
+          <article id="article">
+            <h1>ဘာကြောင့် Akkhara Lang ကို တီထွင်ခဲ့တာလဲ?</h1>
+
+            <p>
+              နိုင်ငံတော်တော်များများက English ကို အခြေခံပြီး programming
+              language တွေဖန်တီးခဲ့ကြပါတယ်။ <code>if</code>, <code>while</code>,
+              <code>function</code> လိုမျိုး keyword တွေအားလုံးနီးပါး English
+              စကားလုံးတွေဖြစ်တာကြောင့် programming စလေ့လာမယ့်သူတွေက code
+              မရေးခင် English ကို အရင်ကြိုးစားနားလည်ရတဲ့ အခြေအနေမျိုး
+              ဖြစ်လာတတ်ပါတယ်။
+            </p>
+
+            <p>
+              ဒါပေမဲ့ အချို့နိုင်ငံတွေက ကိုယ့်နိုင်ငံရဲ့မိခင်ဘာသာစကားကို
+              အသုံးပြုပြီး ဖန်တီးခဲ့ကြတာတွေလည်းရှိပါတယ်။
+              ကိုယ့်ဘာသာစကားနဲ့ code ရေးနိုင်ရင် အစပိုင်းလေ့လာသူတွေအတွက်
+              နားလည်ရလွယ်ပြီး programming ကို ပိုနီးကပ်စွာ ခံစားရမယ်လို့
+              ယုံကြည်ကြလို့ပါပဲ။
+            </p>
+
+            <ul>
+              <li>
+                တရုတ်နိုင်ငံမှာ
+                <a
+                  class="external"
+                  href="https://wy-lang.org/"
+                  target="_blank"
+                  rel="noopener"
+                  >Wenyan-lang</a
+                >
+                ,
+                <a
+                  class="external"
+                  href="https://www.eyuyan.com/"
+                  target="_blank"
+                  rel="noopener"
+                  >易语言 (E Language)</a
+                >။
+              </li>
+              <li>
+                ဂျပန်နိုင်ငံမှာ
+                <a
+                  class="external"
+                  href="https://nadesi.com/"
+                  target="_blank"
+                  rel="noopener"
+                  >Nadesiko</a
+                >။
+              </li>
+              <li>
+                ရုရှားနိုင်ငံမှာ
+                <a
+                  class="external"
+                  href="https://1c-dn.com/"
+                  target="_blank"
+                  rel="noopener"
+                  >1C:Enterprise</a
+                >။
+              </li>
+            </ul>
+
+            <p>
+              ဆိုပြီး အသီးသီးတီထွင်ခဲ့ကြပါတယ်။
+              <span class="note"
+                >(အထက်ဖော်ပြပါ lang များသည် တချို့သောတီထွင်မှုများသာဖြစ်သည်။)</span
+              >
+            </p>
+
+            <blockquote>
+              <p>
+                "မြန်မာစာနဲ့ ရော programming language တီထွင်လို့မရဘူးလား?"
+                ဆိုတဲ့ အတွေးဝင်လာတယ်။
+              </p>
+              <p>
+                တခြားနိုင်ငံတွေက သူတို့ဘာသာစကားနဲ့ တီထွင်နိုင်ခဲ့ရင်
+                ကျွန်တော်တို့ မြန်မာစာနဲ့လည်း ဘာကြောင့်မရနိုင်ရမှာလဲ ဆိုတဲ့
+                မေးခွန်းက စိတ်ထဲက မထွက်သွားပါဘူး။ မြန်မာစာက စာလုံးတွေ
+                အထပ်ထပ်ရေးရတဲ့ စနစ်ဖြစ်လို့ ကွန်ပျူတာနဲ့ ကိုင်တွယ်ဖို့
+                ခက်မယ်လို့လည်း ထင်ခဲ့မိပါတယ်။
+              </p>
+              <p>
+                ဒါကြောင့် ရမရသိချင်လို့ စမ်းလုပ်ခဲ့တယ်။ ပြီးပြည့်စုံတဲ့
+                အဖြေတစ်ခု ဖန်တီးချင်တာထက် "မြန်မာစာနဲ့ code ရေးလို့ရတယ်"
+                ဆိုတာကို လက်တွေ့ပြနိုင်ဖို့၊ နောက်ပိုင်း programming
+                စလေ့လာမယ့် မြန်မာလူငယ်တွေအတွက် မိခင်ဘာသာစကားနဲ့ စတင်နိုင်တဲ့
+                လမ်းတစ်ခု ဖြစ်လာဖို့ ရည်ရွယ်ပါတယ်။
+              </p>
+            </blockquote>
+          </article>
+
+          <footer>
+            <div>
+              &copy; Akkhara Programming Language &bull; Documentation
+            </div>
+            <div class="footer-repo-link">
+              <a
+                class="external"
+                href="https://github.com/XhaStudio/Akkhara-Programming-Language"
+                target="_blank"
+                rel="noopener"
+                >GitHub Repository</a
+              >
+            </div>
+          </footer>
+        </main>
+      </div>
+    </div>
+
+    <!-- Minimal Search Modal -->
+    <div
+      class="search-modal"
+      id="search-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="စာရွက်စာတမ်း ရှာဖွေရန်"
+    >
+      <div class="search-box">
+        <div class="search-header">
+          <svg
+            style="width: 20px; height: 20px; fill: var(--muted-color)"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+            ></path>
+          </svg>
+          <input
+            type="search"
+            class="search-input"
+            id="search-input"
+            placeholder="ရှာဖွေရန် စာလုံးရိုက်ထည့်ပါ... (Press Esc to close)"
+            autocomplete="off"
+          />
+        </div>
+        <div class="search-results" id="search-results">
+          <a class="search-result-item" href="#article">
+            <div class="search-result-title">
+              ဘာကြောင့် Akkhara Lang ကို တီထွင်ခဲ့တာလဲ?
+            </div>
+            <div class="search-result-snippet">
+              နိုင်ငံတော်တော်များများက English ကို အခြေခံပြီး programming
+              language တွေဖန်တီးခဲ့ကြပါတယ်...
+            </div>
+          </a>
+          <a class="search-result-item" href="install.html">
+            <div class="search-result-title">Install လုပ်နည်း</div>
+            <div class="search-result-snippet">
+              အောက်ပါ platform မှ သင်အသုံးပြုသော platform အားရွေးပါ။
+              Terminal မှ install လုပ်ရန်...
+            </div>
+          </a>
+          <a class="search-result-item" href="getting-started.html">
+            <div class="search-result-title">စတင်အသုံးပြုခြင်း</div>
+            <div class="search-result-snippet">
+              "Hello, world!" ကို ပြပါ။ ဖိုင်အသစ် ဖန်တီး၍ akk ဖြင့်
+              စတင်အသုံးပြုရန်...
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast message element -->
+    <div class="toast" id="toast">အခန်းအသစ် မကြာမီ ထွက်ရှိမည်ဖြစ်ပါသည်။</div>
+
+    <script>
+      (function () {
+        const body = document.body;
+        const html = document.documentElement;
+        const sidebar = document.getElementById("sidebar");
+        const sidebarToggle = document.getElementById("sidebar-toggle");
+        const backdrop = document.getElementById("sidebar-backdrop");
+        const themeToggle = document.getElementById("theme-toggle");
+        const searchToggle = document.getElementById("search-toggle");
+        const searchModal = document.getElementById("search-modal");
+        const searchInput = document.getElementById("search-input");
+        const toast = document.getElementById("toast");
+
+        // 1. Sidebar Toggle Logic
+        const isDesktop = () => window.innerWidth > 900;
+
+        // Restore sidebar state for desktop
+        const savedSidebar = localStorage.getItem("akkhara_sidebar_state");
+        if (savedSidebar === "hidden" && isDesktop()) {
+          body.classList.add("sidebar-hidden");
+          sidebarToggle.setAttribute("aria-expanded", "false");
+        }
+
+        function toggleSidebar() {
+          if (isDesktop()) {
+            body.classList.toggle("sidebar-hidden");
+            const isHidden = body.classList.contains("sidebar-hidden");
+            sidebarToggle.setAttribute("aria-expanded", String(!isHidden));
+            localStorage.setItem(
+              "akkhara_sidebar_state",
+              isHidden ? "hidden" : "visible"
+            );
+          } else {
+            const isOpen = body.classList.toggle("sidebar-open");
+            sidebarToggle.setAttribute("aria-expanded", String(isOpen));
+          }
+        }
+
+        function closeMobileSidebar() {
+          if (body.classList.contains("sidebar-open")) {
+            body.classList.remove("sidebar-open");
+            sidebarToggle.setAttribute("aria-expanded", "false");
+          }
+        }
+
+        sidebarToggle.addEventListener("click", toggleSidebar);
+        backdrop.addEventListener("click", closeMobileSidebar);
+
+        // 2. Theme Toggle Logic (Light / Dark)
+        const savedTheme = localStorage.getItem("akkhara_doc_theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+
+        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+          html.setAttribute("data-theme", "dark");
+        } else {
+          html.setAttribute("data-theme", "light");
+        }
+
+        themeToggle.addEventListener("click", () => {
+          const currentTheme = html.getAttribute("data-theme");
+          const nextTheme = currentTheme === "dark" ? "light" : "dark";
+          html.setAttribute("data-theme", nextTheme);
+          localStorage.setItem("akkhara_doc_theme", nextTheme);
+        });
+
+        // 3. Search Modal Logic
+        function openSearch() {
+          searchModal.classList.add("open");
+          searchInput.focus();
+        }
+
+        function closeSearch() {
+          searchModal.classList.remove("open");
+          searchInput.value = "";
+        }
+
+        searchToggle.addEventListener("click", openSearch);
+        searchModal.addEventListener("click", (e) => {
+          if (e.target === searchModal) closeSearch();
+        });
+
+        // 4. Keyboard Shortcuts
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            closeSearch();
+            closeMobileSidebar();
+          } else if (
+            (e.key === "/" || (e.ctrlKey && e.key.toLowerCase() === "k")) &&
+            !searchModal.classList.contains("open") &&
+            document.activeElement.tagName !== "INPUT" &&
+            document.activeElement.tagName !== "TEXTAREA"
+          ) {
+            e.preventDefault();
+            openSearch();
+          } else if (e.ctrlKey && e.key.toLowerCase() === "b") {
+            e.preventDefault();
+            toggleSidebar();
+          }
+        });
+
+        // 5. Toast notification for placeholder links
+        let toastTimeout;
+        function showToast(chapterName) {
+          toast.textContent = `"${chapterName}" အခန်း မကြာမီ လာပါမည်။`;
+          toast.classList.add("show");
+          clearTimeout(toastTimeout);
+          toastTimeout = setTimeout(() => {
+            toast.classList.remove("show");
+          }, 2400);
+        }
+
+        document.querySelectorAll(".placeholder-link").forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const chapter = link.getAttribute("data-chapter") || "";
+            showToast(chapter);
+            closeMobileSidebar();
+          });
+        });
+
+        // Close mobile sidebar when clicking main page link
+        document
+          .querySelector('.chapter-link[href="#article"]')
+          .addEventListener("click", () => {
+            closeMobileSidebar();
+          });
+      })();
+    </script>
+  </body>
+</html>
