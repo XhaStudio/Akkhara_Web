@@ -9,7 +9,6 @@
     <!-- Google Fonts for Myanmar Unicode & English Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="icon" type="image/x-icon" href="favicon.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Noto+Sans+Myanmar:wght@400;500;600;700&family=Noto+Serif+Myanmar:wght@400;500;600&family=Source+Code+Pro:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
       rel="stylesheet"
@@ -600,6 +599,7 @@
         }
       }
     </style>
+    <link rel="stylesheet" href="site.css" />
   </head>
   <body>
     <div class="app-layout">
@@ -614,7 +614,10 @@
         aria-hidden="false"
       >
         <div class="sidebar-header">
-          <a class="sidebar-title" href="#article">Akkhara Documentation</a>
+          <a class="sidebar-title" href="#article">
+            <span class="brand-mark" aria-hidden="true">အ</span>
+            <span>Akkhara Documentation</span>
+          </a>
         </div>
         <div class="sidebar-nav">
           <ul class="chapter-list">
@@ -734,16 +737,31 @@
         <!-- Main Reading Content -->
         <main class="content-wrapper">
           <article id="article">
-            <h1>ဘာကြောင့် Akkhara Lang ကို တီထွင်ခဲ့တာလဲ?</h1>
+            <section class="welcome-hero" aria-labelledby="article-title">
+              <p class="eyebrow">Programming, in your language</p>
+              <h1 id="article-title">ဘာကြောင့် Akkhara Lang ကို တီထွင်ခဲ့တာလဲ?</h1>
 
-            <p>
-              နိုင်ငံတော်တော်များများက English ကို အခြေခံပြီး programming
-              language တွေဖန်တီးခဲ့ကြပါတယ်။ <code>if</code>, <code>while</code>,
-              <code>function</code> လိုမျိုး keyword တွေအားလုံးနီးပါး English
-              စကားလုံးတွေဖြစ်တာကြောင့် programming စလေ့လာမယ့်သူတွေက code
-              မရေးခင် English ကို အရင်ကြိုးစားနားလည်ရတဲ့ အခြေအနေမျိုး
-              ဖြစ်လာတတ်ပါတယ်။
-            </p>
+              <p class="lead">
+                နိုင်ငံတော်တော်များများက English ကို အခြေခံပြီး programming
+                language တွေဖန်တီးခဲ့ကြပါတယ်။ <code>if</code>,
+                <code>while</code>, <code>function</code> လိုမျိုး keyword
+                တွေအားလုံးနီးပါး English စကားလုံးတွေဖြစ်တာကြောင့် programming
+                စလေ့လာမယ့်သူတွေက code မရေးခင် English ကို အရင်ကြိုးစားနားလည်ရတဲ့
+                အခြေအနေမျိုး ဖြစ်လာတတ်ပါတယ်။
+              </p>
+
+              <div class="hero-actions">
+                <a
+                  class="hero-button hero-button-primary"
+                  href="getting-started.html"
+                >
+                  စတင်လေ့လာရန် <span aria-hidden="true">→</span>
+                </a>
+                <a class="hero-button hero-button-secondary" href="install.html">
+                  Install လုပ်နည်း
+                </a>
+              </div>
+            </section>
 
             <p>
               ဒါပေမဲ့ အချို့နိုင်ငံတွေက ကိုယ့်နိုင်ငံရဲ့မိခင်ဘာသာစကားကို
